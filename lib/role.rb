@@ -32,13 +32,32 @@ module IMDB
     end
     private
     def matches
-      @matches ||= /^(?<title>.*?) +\((?<year>\d{4})\) +\[(?<character>.+?)\] +<(?<credit>\d+)>$/.match(input)
+      @matches ||= regex.match(input)
     end
+    def regex
+       /^(?<title>.+?) +\((?<year>\d{4})\) +\[(?<character>.+?)\] +<(?<credit>\d+)>$/
+     end
   end
 
   class TVRole < Role
     def type
       :tv
+    end
+
+    def episode_title
+      matches[:episode_title]
+    end
+
+    def season
+      matches[:season].to_i
+    end
+
+    def episode
+      matches[:episode].to_i
+    end
+    private
+    def regex
+      /^"(?<title>.+?)" +\((?<year>\d{4})\) {(?<episode_title>.+?) +\(#(?<season>\d+)\.(?<episode>\d+)\)} +\[(?<character>.+?)\] +<(?<credit>\d+)>$/
     end
   end
 end

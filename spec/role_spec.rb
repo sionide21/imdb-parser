@@ -23,3 +23,42 @@ describe IMDB::Role do
     end
   end
 end
+
+describe IMDB::TVRole do
+  let(:role) { IMDB::TVRole.new '"Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>' }
+  describe '#title' do
+    it "returns the title of the series" do
+      expect(role.title).to eq("Buffy the Vampire Slayer")
+    end
+  end
+  describe '#episode_title' do
+    it "returns the title of the episode" do
+      expect(role.episode_title).to eq("After Life")
+    end
+  end
+  describe '#season' do
+    it "returns the season of the episode" do
+      expect(role.season).to eq(6)
+    end
+  end
+  describe '#episode' do
+    it "returns the episode number within the season" do
+      expect(role.episode).to eq(3)
+    end
+  end
+  describe '#year' do
+    it "returns the year the series came out" do
+      expect(role.year).to eq(1997)
+    end
+  end
+  describe '#character' do
+    it "returns the character name" do
+      expect(role.character).to eq("Dawn Summers")
+    end
+  end
+  describe '#credit' do
+    it "returns the billing position in credits" do
+      expect(role.credit).to eq(4)
+    end
+  end
+end
