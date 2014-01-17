@@ -1,6 +1,8 @@
 require 'util'
 
 module IMDB
+  class ParseError < Exception
+  end
   class Role
     include TakesStringInput
     def self.parse(input)
@@ -10,6 +12,11 @@ module IMDB
       else
         new(input)
       end
+    end
+
+    def initialize(*args)
+      super
+      raise ParseError if matches.nil?
     end
     def type
       :movie

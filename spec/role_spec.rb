@@ -2,6 +2,9 @@ require 'role'
 
 describe IMDB::Role do
   let(:role) { IMDB::Role.new 'EuroTrip (2004)  [Jenny]  <6>' }
+  it "fails fast when input is malformed" do
+    expect {IMDB::Role.new 'bobloblaw attorney at law' }.to raise_exception(IMDB::ParseError)
+  end
   describe '#title' do
     it "returns the movie title" do
       expect(role.title).to eq("EuroTrip")
@@ -26,6 +29,9 @@ end
 
 describe IMDB::TVRole do
   let(:role) { IMDB::TVRole.new '"Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>' }
+  it "fails fast when input is malformed" do
+    expect {IMDB::TVRole.new 'bobloblaw attorney at law' }.to raise_exception(IMDB::ParseError)
+  end
   describe '#title' do
     it "returns the title of the series" do
       expect(role.title).to eq("Buffy the Vampire Slayer")
