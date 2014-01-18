@@ -44,7 +44,13 @@ module IMDB
       @matches ||= regex.match(input)
     end
     def regex
-       /^(?<title>.+?) +\((?<year>\d{4})(:?\/I+)?\)(?: +?\((?:uncredited|TV|V|.+?)\))? *(?<suspended>{{SUSPENDED}})?\s*?(?:\[(?<character>.+?)\])?(?: +<(?<credit>\d+)>)?$/
+      /^(?<title>.+?)\s+
+        \((?<year>\d{4})(:?\/I+)?\) \s+?
+        (?:\((?:uncredited|TV|V|.+?)\))? \s*?
+        (?<suspended>{{SUSPENDED}})? \s*?
+        (?:\[(?<character>.+?)\])? \s*?
+        (?:<(?<credit>\d+)>)?
+      $/x
      end
   end
 
@@ -73,17 +79,14 @@ module IMDB
     def regex
       /^"(?<title>.+?)"\s+
         \((?<year>\d{4})(:?\/I+)?\)
-        (:?\s{
-          (:?
-            (?<episode_title>.+?)? \s*? \(\#(?<season>\d+)\.(?<episode>\d+)\) |
-            \((?<episode_title>[\d\-]+)\) |
-            (?<episode_title>.+?)
-          )
-        })?
-        (?:\s+?\((?:uncredited|as\s(?<alt_character>.+?)|.+?)\))?
-        \s*
-        (?:\[(?<character>.+?)\])?
-        (?:\s+<(?<credit>\d+)>)?
+        (:?\s{(:?
+          (?<episode_title>.+?)? \s*? \(\#(?<season>\d+)\.(?<episode>\d+)\) |
+          \((?<episode_title>[\d\-]+)\) |
+          (?<episode_title>.+?)
+        )})? \s*?
+        (?:\((?:uncredited|as\s(?<alt_character>.+?)|.+?)\))? \s*?
+        (?:\[(?<character>.+?)\])?\s*?
+        (?:<(?<credit>\d+)>)?
       $/x
     end
   end
