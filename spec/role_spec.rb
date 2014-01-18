@@ -25,6 +25,18 @@ describe IMDB::Role do
       expect(role.credit).to eq(6)
     end
   end
+
+  describe "::parse" do
+    def parse(string)
+      IMDB::Role.parse(string)
+    end
+
+    it "handles uncredited roles" do
+      expect { parse "Night of the Demons (2009)  (uncredited)  [Goth raver]" }.not_to raise_error
+      pp parse("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit
+      expect(parse("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit).to be_nil
+    end
+  end
 end
 
 describe IMDB::TVRole do

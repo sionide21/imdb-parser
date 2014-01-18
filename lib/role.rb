@@ -35,14 +35,16 @@ module IMDB
     end
 
     def credit
-      matches[:credit].to_i
+      matches[:credit].to_i if matches[:credit]
     end
+
     private
+
     def matches
       @matches ||= regex.match(input)
     end
     def regex
-       /^(?<title>.+?) +\((?<year>\d{4})\) +\[(?<character>.+?)\] +<(?<credit>\d+)>$/
+       /^(?<title>.+?) +\((?<year>\d{4})\)(?: +\(uncredited\))? +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
      end
   end
 
