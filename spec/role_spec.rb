@@ -71,6 +71,9 @@ describe IMDB::Role do
     it "handles arbitrary episode notes" do
       expect { parse '"The Xtra Factor" (2004) {Tulisa\'s Best and Worst (#8.34)}  (archive footage)  [Themselves]' }.not_to raise_error
     end
+    it "handles arbitrary movie notes" do
+      expect { parse "2nd Annual BET Awards (2002) (TV)  (as 3LW)  [Themselves]" }.not_to raise_error
+    end
   end
 end
 
