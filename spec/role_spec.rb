@@ -64,6 +64,7 @@ describe IMDB::Role do
     end
     it "handles weird ass release years" do
       expect { parse "Splitter (2011/I)  [Kidnapped Girl]" }.not_to raise_error
+      expect { parse "The Pact (2003/III)  [Brittany Vickson]  <4>" }.not_to raise_error
     end
     it "handles no character name in tv shows" do
       expect { parse '"Crackhorse Presents" (2012) {High Speed (#1.10)}' }.not_to raise_error
