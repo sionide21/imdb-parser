@@ -49,6 +49,7 @@ module IMDB
     def self.regex
       /^(?<title>.+?)\s+
         #{year_regex} \s*?
+        \)? \s*  # One of the records has a random trailing paren
         (?:\((?:uncredited|TV|V|.+?)\))? \s*?
         (?<suspended>{{SUSPENDED}})? \s*?
         (?:\(rumored\))? \s*?

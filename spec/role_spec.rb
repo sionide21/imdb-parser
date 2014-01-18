@@ -106,6 +106,9 @@ describe IMDB::Role do
     it "handles romured movies" do
       expect { parse "Desi Movie (2010) {{SUSPENDED}}  (rumored)" }.not_to raise_error
     end
+    it "handles one really stupid annoying typo" do
+      expect { parse "Asphalt (1951)  )  [Helli]  <28>" }.not_to raise_error
+    end
   end
 end
 

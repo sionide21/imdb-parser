@@ -1,5 +1,6 @@
 require 'util'
 require 'role'
+require 'actor'
 
 
 module IMDB
@@ -45,12 +46,4 @@ module IMDB
       input.gets
     end
   end
-
-  class Actor
-    include TakesStringInput
-    def roles
-      input.strip.gsub(/^.+?\t/, '').split(/\n/).map{ |m| Role.parse(m) }
-    end
-  end
-
 end
