@@ -19,6 +19,9 @@ describe IMDB::Role do
     it "returns the character name" do
       expect(role.character).to eq("Jenny")
     end
+    it "is nil if no character provided" do
+      expect(IMDB::Role.new("El secreto de la Veneno (1997) (V)  <1>").character).to be_nil
+    end
   end
   describe '#credit' do
     it "returns the billing position in credits" do
@@ -49,6 +52,9 @@ describe IMDB::Role do
     end
     it "handles tv shows wihtout episode information" do
       expect { parse '"La granja tolima" (2004)  [Herself]' }.not_to raise_error
+    end
+    it "handles straight to video movies" do
+      expect { parse "El secreto de la Veneno (1997) (V)  <1>" }.not_to raise_error
     end
   end
 end
