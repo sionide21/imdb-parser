@@ -62,6 +62,9 @@ describe IMDB::Role do
     it "handles no character name in tv shows" do
       expect { parse '"Crackhorse Presents" (2012) {High Speed (#1.10)}' }.not_to raise_error
     end
+    it "handles alternate character listing" do
+      expect { parse '"Casting Qs" (2010) {An Interview with Tracy \'Twinkie\' Byrd (#2.14)}  (as Twinkie Byrd)  [Herself]' }.not_to raise_error
+    end
   end
 end
 
@@ -110,6 +113,11 @@ describe IMDB::TVRole do
   describe '#character' do
     it "returns the character name" do
       expect(role.character).to eq("Dawn Summers")
+    end
+    it "returns character name istead 'Themself' credited 'as character'" do
+      expect(IMDB::TVRole.new(
+        '"Casting Qs" (2010) {An Interview with Tracy \'Twinkie\' Byrd (#2.14)}  (as Twinkie Byrd)  [Herself]'
+      ).character).to eq("Twinkie Byrd")
     end
     it "is nil if not credited" do
       expect(IMDB::TVRole.new('"Crackhorse Presents" (2012) {High Speed (#1.10)}').character).to be_nil

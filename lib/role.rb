@@ -64,9 +64,14 @@ module IMDB
     def episode
       matches[:episode].to_i if matches[:episode]
     end
+
+    def character
+      matches[:alt_character] or super
+    end
+
     private
     def regex
-      /^"(?<title>.+?)" +\((?<year>\d{4})\)(:? {(:?(:?(?<episode_title>.+?) +)?\(#(?<season>\d+)\.(?<episode>\d+)\)|\((?<episode_title>[\d\-]+)\))})?(?: +?\(uncredited\))? *(?:\[(?<character>.+?)\])?(?: +<(?<credit>\d+)>)?$/
+      /^"(?<title>.+?)" +\((?<year>\d{4})\)(:? {(:?(:?(?<episode_title>.+?) +)?\(#(?<season>\d+)\.(?<episode>\d+)\)|\((?<episode_title>[\d\-]+)\))})?(?: +?\((?:uncredited|as (?<alt_character>.+?))\))? *(?:\[(?<character>.+?)\])?(?: +<(?<credit>\d+)>)?$/
     end
   end
 end
