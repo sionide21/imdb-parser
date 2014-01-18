@@ -59,6 +59,9 @@ describe IMDB::Role do
     it "handles weird ass release years" do
       expect { parse "Splitter (2011/I)  [Kidnapped Girl]" }.not_to raise_error
     end
+    it "handles no character name in tv shows" do
+      expect { parse '"Crackhorse Presents" (2012) {High Speed (#1.10)}' }.not_to raise_error
+    end
   end
 end
 
@@ -107,6 +110,9 @@ describe IMDB::TVRole do
   describe '#character' do
     it "returns the character name" do
       expect(role.character).to eq("Dawn Summers")
+    end
+    it "is nil if not credited" do
+      expect(IMDB::TVRole.new('"Crackhorse Presents" (2012) {High Speed (#1.10)}').character).to be_nil
     end
   end
   describe '#credit' do
