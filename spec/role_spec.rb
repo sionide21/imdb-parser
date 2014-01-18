@@ -47,6 +47,9 @@ describe IMDB::Role do
     it "handles tv shows by date" do
       expect { parse '"El hormiguero" (2006) {(2011-03-23)}  [Herself]' }.not_to raise_error
     end
+    it "handles tv shows wihtout episode information" do
+      expect { parse '"La granja tolima" (2004)  [Herself]' }.not_to raise_error
+    end
   end
 end
 
