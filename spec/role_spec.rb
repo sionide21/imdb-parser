@@ -68,6 +68,9 @@ describe IMDB::Role do
     it "handles alternate character listing" do
       expect { parse '"Casting Qs" (2010) {An Interview with Tracy \'Twinkie\' Byrd (#2.14)}  (as Twinkie Byrd)  [Herself]' }.not_to raise_error
     end
+    it "handles arbitrary episode notes" do
+      expect { parse '"The Xtra Factor" (2004) {Tulisa\'s Best and Worst (#8.34)}  (archive footage)  [Themselves]' }.not_to raise_error
+    end
   end
 end
 
