@@ -4,6 +4,8 @@ require 'parser'
 
 describe IMDB::Parser, '#parse' do
   let(:contents) { %{
+    Name\t\t\tTitles
+    ----\t\t\t------
     Trachtenberg, Michelle\tEuroTrip (2004)  [Jenny]  <6>
         "Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>
   }}
@@ -27,6 +29,29 @@ describe IMDB::Parser, '#parse' do
   end
   context "when passed an IO" do
     it "parses actors" do
+      parser = IMDB::Parser.new(StringIO.new(contents.strip))
+      expect(parser.actors.count).to eq(1)
+    end
+  end
+
+  context "when input has header or footer" do
+    let(:contents) { %{
+      blah blah blah
+      Somehting....
+      ===============================
+      Name\t\t\tTitles
+      ----\t\t\t------
+      Trachtenberg, Michelle\tEuroTrip (2004)  [Jenny]  <6>
+          "Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>
+
+      -----------------------------------------------------------------------------
+
+      Some more stuff
+      ===============
+
+      gobbledy gook
+    }}
+    it "strips it" do
       parser = IMDB::Parser.new(StringIO.new(contents.strip))
       expect(parser.actors.count).to eq(1)
     end

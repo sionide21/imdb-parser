@@ -16,11 +16,14 @@ module IMDB
     end
 
     def each
+      strip_header
       record = ""
       input.each do |line|
         if line.strip.empty?
           yield Actor.new(record)
           record = ""
+        elsif line.strip =~ /^-+$/
+          break
         else
           record << line
         end
@@ -35,6 +38,12 @@ module IMDB
     end
 
     private :input
+
+    def strip_header
+      while input.gets.strip !~ /^Name\s+Titles$/
+      end
+      input.gets
+    end
   end
 
   class Actor
