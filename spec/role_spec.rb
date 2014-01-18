@@ -74,6 +74,7 @@ describe IMDB::Role do
       expect { parse '"Furor" (1998/I) {(1998-12-19)}  (as Ella Baila Sola)  [Herself]' }.not_to raise_error
       expect { parse "Hush (2013/IV)  [Nanda]" }.not_to raise_error
       expect { parse "Run (2012/V)  [Tanishca]" }.not_to raise_error
+      expect { parse "Redemption (2013/X)" }.not_to raise_error
     end
     it "handles weird ass unkown release years" do
       expect { parse "Hamlet (????/II)  [Gertrude]" }.not_to raise_error
