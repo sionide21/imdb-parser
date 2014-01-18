@@ -14,6 +14,9 @@ describe IMDB::Role do
     it "returns the year of release" do
       expect(role.year).to eq(2004)
     end
+    it "returns nil if the year is not known" do
+      expect(IMDB::Role.new("Nailed (????)  [Reporter]").year).to be_nil
+    end
   end
   describe '#character' do
     it "returns the character name" do
@@ -84,6 +87,9 @@ describe IMDB::Role do
     end
     it "handles suspended" do
       expect { parse "Rock da Boat (2001) (TV) {{SUSPENDED}}  [Herself]  <1>" }.not_to raise_error
+    end
+    it "handles unknown year" do
+      expect { parse "Nailed (????)  [Reporter]" }.not_to raise_error
     end
   end
 end

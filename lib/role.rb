@@ -27,7 +27,7 @@ module IMDB
     end
 
     def year
-      matches[:year].to_i
+      matches[:year].to_i if matches[:year]
     end
 
     def character
@@ -45,12 +45,16 @@ module IMDB
     end
     def regex
       /^(?<title>.+?)\s+
-        \((?<year>\d{4})(:?\/I+)?\) \s*?
+        #{year_regex} \s*?
         (?:\((?:uncredited|TV|V|.+?)\))? \s*?
         (?<suspended>{{SUSPENDED}})? \s*?
         (?:\[(?<character>.+?)\])? \s*?
         (?:<(?<credit>\d+)>)?
       $/x
+     end
+
+     def year_regex
+       /\((?:(?<year>\d{4})(:?\/I+)?|[\?]{4})\)/
      end
   end
 
@@ -78,7 +82,7 @@ module IMDB
     private
     def regex
       /^"(?<title>.+?)"\s+
-        \((?<year>\d{4})(:?\/I+)?\)
+        #{year_regex}
         (:?\s{(:?
           (?<episode_title>.+?)? \s*? \(\#(?<season>\d+)\.(?<episode>\d+)\) |
           \((?<episode_title>[\d\-]+)\) |
