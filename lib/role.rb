@@ -58,7 +58,7 @@ module IMDB
      end
 
      def self.year_regex
-       /\((?:(?<year>\d{4})|[\?]{4})(:?\/I+V?)?\)/
+       /\((?:(?<year>\d{4})|[\?]{4})(:?\/[IV]+?)?\)/
      end
   end
 
