@@ -58,15 +58,15 @@ module IMDB
     end
 
     def season
-      matches[:season].to_i
+      (matches[:season] or matches[:episode_title]).to_i
     end
 
     def episode
-      matches[:episode].to_i
+      matches[:episode].to_i if matches[:episode]
     end
     private
     def regex
-      /^"(?<title>.+?)" +\((?<year>\d{4})\) {(:?(?<episode_title>.+?) +)?\(#(?<season>\d+)\.(?<episode>\d+)\)}(?: +?\(uncredited\))? +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
+      /^"(?<title>.+?)" +\((?<year>\d{4})\) {(:?(:?(?<episode_title>.+?) +)?\(#(?<season>\d+)\.(?<episode>\d+)\)|\((?<episode_title>[\d\-]+)\))}(?: +?\(uncredited\))? +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
     end
   end
 end

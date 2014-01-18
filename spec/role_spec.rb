@@ -44,6 +44,9 @@ describe IMDB::Role do
     it "handles made for TV movies" do
       expect { parse "This American Life Live! (2012) (TV)  [Dancers]" }.not_to raise_error
     end
+    it "handles tv shows by date" do
+      expect { parse '"El hormiguero" (2006) {(2011-03-23)}  [Herself]' }.not_to raise_error
+    end
   end
 end
 
@@ -61,6 +64,9 @@ describe IMDB::TVRole do
     it "returns the title of the episode" do
       expect(role.episode_title).to eq("After Life")
     end
+    it "is the date of the episode if titles are dates" do
+      expect(IMDB::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').episode_title).to eq("2011-03-23")
+    end
     it "is nil if the title is not provided" do
       expect(IMDB::TVRole.new('"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]').episode_title).to be_nil
     end
@@ -69,10 +75,16 @@ describe IMDB::TVRole do
     it "returns the season of the episode" do
       expect(role.season).to eq(6)
     end
+    it "returns the year of the episode if episode titles are dates" do
+      expect(IMDB::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').season).to eq(2011)
+    end
   end
   describe '#episode' do
     it "returns the episode number within the season" do
       expect(role.episode).to eq(3)
+    end
+    it "returns nil if the episode number is not provied" do
+      expect(IMDB::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').episode).to be_nil
     end
   end
   describe '#year' do
