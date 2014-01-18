@@ -1,13 +1,13 @@
 #! /usr/bin/env ruby
-require 'parser'
+require 'imdb/parser'
 
 # USAGE: ruby -I lib tools/next_edgecase.rb /path/to/actors.list
 
 begin
-  IMDB::Parser.new(File.open(ARGV[0], 'rb')).each do |a|
+  IMDB::Parser::Parser.new(File.open(ARGV[0], 'rb')).each do |a|
     a.roles
   end
-rescue IMDB::ParseError => e
+rescue IMDB::Parser::ParseError => e
   puts %{
 it "handles " do
   expect { parse "#{e}" }.not_to raise_error
