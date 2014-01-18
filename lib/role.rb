@@ -51,6 +51,7 @@ module IMDB
         #{year_regex} \s*?
         (?:\((?:uncredited|TV|V|.+?)\))? \s*?
         (?<suspended>{{SUSPENDED}})? \s*?
+        (?:\(rumored\))? \s*?
         (?:\[(?<character>.+?)\])? \s*?
         (?:<(?<credit>\d+)>)?
       $/x

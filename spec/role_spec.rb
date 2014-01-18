@@ -91,6 +91,9 @@ describe IMDB::Role do
     it "handles unknown year" do
       expect { parse "Nailed (????)  [Reporter]" }.not_to raise_error
     end
+    it "handles romured movies" do
+      expect { parse "Desi Movie (2010) {{SUSPENDED}}  (rumored)" }.not_to raise_error
+    end
   end
 end
 
