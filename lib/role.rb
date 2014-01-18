@@ -16,7 +16,7 @@ module IMDB
 
     def initialize(*args)
       super
-      raise ParseError if matches.nil?
+      raise ParseError.new(input) if matches.nil?
     end
     def type
       :movie
