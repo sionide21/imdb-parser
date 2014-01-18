@@ -79,6 +79,9 @@ describe IMDB::Role do
     it "handles arbitrary movie notes" do
       expect { parse "2nd Annual BET Awards (2002) (TV)  (as 3LW)  [Themselves]" }.not_to raise_error
     end
+    it "handles suspended" do
+      expect { parse "Rock da Boat (2001) (TV) {{SUSPENDED}}  [Herself]  <1>" }.not_to raise_error
+    end
   end
 end
 
