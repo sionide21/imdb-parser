@@ -72,6 +72,7 @@ describe IMDB::Role do
       expect { parse "Splitter (2011/I)  [Kidnapped Girl]" }.not_to raise_error
       expect { parse "The Pact (2003/III)  [Brittany Vickson]  <4>" }.not_to raise_error
       expect { parse '"Furor" (1998/I) {(1998-12-19)}  (as Ella Baila Sola)  [Herself]' }.not_to raise_error
+      expect { parse "Hush (2013/IV)  [Nanda]" }.not_to raise_error
     end
     it "handles weird ass unkown release years" do
       expect { parse "Hamlet (????/II)  [Gertrude]" }.not_to raise_error
