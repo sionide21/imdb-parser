@@ -53,6 +53,9 @@ describe IMDB::Role do
     it "handles tv shows wihtout episode information" do
       expect { parse '"La granja tolima" (2004)  [Herself]' }.not_to raise_error
     end
+    it "handles tv shows with title but not episode number" do
+      expect { parse '"Jenny Jones" (1991) {I Got No Shame, \'Cuz My Chest Gives Me All Game!}  [Herself]' }.not_to raise_error
+    end
     it "handles straight to video movies" do
       expect { parse "El secreto de la Veneno (1997) (V)  <1>" }.not_to raise_error
     end

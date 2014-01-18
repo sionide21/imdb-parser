@@ -76,7 +76,8 @@ module IMDB
         (:?\s{
           (:?
             (?<episode_title>.+?)? \s*? \(\#(?<season>\d+)\.(?<episode>\d+)\) |
-            \((?<episode_title>[\d\-]+)\)
+            \((?<episode_title>[\d\-]+)\) |
+            (?<episode_title>.+?)
           )
         })?
         (?:\s+?\((?:uncredited|as\s(?<alt_character>.+?)|.+?)\))?
