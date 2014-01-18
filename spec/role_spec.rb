@@ -56,6 +56,9 @@ describe IMDB::Role do
     it "handles straight to video movies" do
       expect { parse "El secreto de la Veneno (1997) (V)  <1>" }.not_to raise_error
     end
+    it "handles ucredited straight to video movies" do
+      expect { parse "Fillet of Soul (2001) (V)" }.not_to raise_error
+    end
     it "handles weird ass release years" do
       expect { parse "Splitter (2011/I)  [Kidnapped Girl]" }.not_to raise_error
     end
