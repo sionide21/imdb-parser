@@ -44,7 +44,7 @@ module IMDB
       @matches ||= regex.match(input)
     end
     def regex
-       /^(?<title>.+?) +\((?<year>\d{4})\)(?: +\(uncredited\))? +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
+       /^(?<title>.+?) +\((?<year>\d{4})\)(?: +?\((?:uncredited|TV)\))? +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
      end
   end
 
