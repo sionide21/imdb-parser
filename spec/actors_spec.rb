@@ -10,4 +10,10 @@ describe IMDB::Actor do
       expect(actor.name).to eq("Trachtenberg, Michelle")
     end
   end
+
+  describe '#roles' do
+    it "returns a list of roles the actor has been in" do
+      expect(actor.roles.count).to eq(2)
+    end
+  end
 end
