@@ -1,8 +1,9 @@
-require 'actor'
+require 'imdb/parser/actor'
 
-describe IMDB::Actor do
+
+describe IMDB::Parser::Actor do
   let(:actor) { 
-    IMDB::Actor.new %{Trachtenberg, Michelle\tEuroTrip (2004)  [Jenny]  <6>
+    IMDB::Parser::Actor.new %{Trachtenberg, Michelle\tEuroTrip (2004)  [Jenny]  <6>
       "Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>} 
   }
   describe '#name' do

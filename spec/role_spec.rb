@@ -1,9 +1,10 @@
-require 'role'
+require 'imdb/parser/role'
 
-describe IMDB::Role do
-  let(:role) { IMDB::Role.new 'EuroTrip (2004)  [Jenny]  <6>' }
+
+describe IMDB::Parser::Role do
+  let(:role) { IMDB::Parser::Role.new 'EuroTrip (2004)  [Jenny]  <6>' }
   it "fails fast when input is malformed" do
-    expect { IMDB::Role.new 'bobloblaw attorney at law' }.to raise_exception(IMDB::ParseError, "bobloblaw attorney at law")
+    expect { IMDB::Parser::Role.new 'bobloblaw attorney at law' }.to raise_exception(IMDB::Parser::ParseError, "bobloblaw attorney at law")
   end
   describe '#title' do
     it "returns the movie title" do
@@ -15,7 +16,7 @@ describe IMDB::Role do
       expect(role.year).to eq(2004)
     end
     it "returns nil if the year is not known" do
-      expect(IMDB::Role.new("Nailed (????)  [Reporter]").year).to be_nil
+      expect(IMDB::Parser::Role.new("Nailed (????)  [Reporter]").year).to be_nil
     end
   end
   describe '#character' do
@@ -23,12 +24,12 @@ describe IMDB::Role do
       expect(role.character).to eq("Jenny")
     end
     it "returns character name istead 'Themself' credited 'as character'" do
-      expect(IMDB::Role.new(
+      expect(IMDB::Parser::Role.new(
         "The Magnificent Duo (1992) {{SUSPENDED}}  (as Carol Roberts)  [Muriel]  <15>"
       ).character).to eq("Carol Roberts")
     end
     it "is nil if no character provided" do
-      expect(IMDB::Role.new("El secreto de la Veneno (1997) (V)  <1>").character).to be_nil
+      expect(IMDB::Parser::Role.new("El secreto de la Veneno (1997) (V)  <1>").character).to be_nil
     end
   end
   describe '#credit' do
@@ -36,13 +37,13 @@ describe IMDB::Role do
       expect(role.credit).to eq(6)
     end
     it "is nil if not credited" do
-      expect(IMDB::Role.new("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit).to be_nil
+      expect(IMDB::Parser::Role.new("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit).to be_nil
     end
   end
 
   describe "::parse" do
     def parse(string)
-      IMDB::Role.parse(string)
+      IMDB::Parser::Role.parse(string)
     end
 
     it "handles uncredited roles" do
@@ -112,10 +113,10 @@ describe IMDB::Role do
   end
 end
 
-describe IMDB::TVRole do
-  let(:role) { IMDB::TVRole.new '"Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>' }
+describe IMDB::Parser::TVRole do
+  let(:role) { IMDB::Parser::TVRole.new '"Buffy the Vampire Slayer" (1997) {After Life (#6.3)}  [Dawn Summers]  <4>' }
   it "fails fast when input is malformed" do
-    expect { IMDB::TVRole.new 'bobloblaw attorney at law' }.to raise_exception(IMDB::ParseError, "bobloblaw attorney at law")
+    expect { IMDB::Parser::TVRole.new 'bobloblaw attorney at law' }.to raise_exception(IMDB::Parser::ParseError, "bobloblaw attorney at law")
   end
   describe '#title' do
     it "returns the title of the series" do
@@ -127,10 +128,10 @@ describe IMDB::TVRole do
       expect(role.episode_title).to eq("After Life")
     end
     it "is the date of the episode if titles are dates" do
-      expect(IMDB::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').episode_title).to eq("2011-03-23")
+      expect(IMDB::Parser::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').episode_title).to eq("2011-03-23")
     end
     it "is nil if the title is not provided" do
-      expect(IMDB::TVRole.new('"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]').episode_title).to be_nil
+      expect(IMDB::Parser::TVRole.new('"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]').episode_title).to be_nil
     end
   end
   describe '#season' do
@@ -138,7 +139,7 @@ describe IMDB::TVRole do
       expect(role.season).to eq(6)
     end
     it "returns the year of the episode if episode titles are dates" do
-      expect(IMDB::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').season).to eq(2011)
+      expect(IMDB::Parser::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').season).to eq(2011)
     end
   end
   describe '#episode' do
@@ -146,7 +147,7 @@ describe IMDB::TVRole do
       expect(role.episode).to eq(3)
     end
     it "returns nil if the episode number is not provied" do
-      expect(IMDB::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').episode).to be_nil
+      expect(IMDB::Parser::TVRole.new('"El hormiguero" (2006) {(2011-03-23)}  [Herself]').episode).to be_nil
     end
   end
   describe '#year' do
@@ -159,12 +160,12 @@ describe IMDB::TVRole do
       expect(role.character).to eq("Dawn Summers")
     end
     it "returns character name istead 'Themself' credited 'as character'" do
-      expect(IMDB::TVRole.new(
+      expect(IMDB::Parser::TVRole.new(
         '"Casting Qs" (2010) {An Interview with Tracy \'Twinkie\' Byrd (#2.14)}  (as Twinkie Byrd)  [Herself]'
       ).character).to eq("Twinkie Byrd")
     end
     it "is nil if not credited" do
-      expect(IMDB::TVRole.new('"Crackhorse Presents" (2012) {High Speed (#1.10)}').character).to be_nil
+      expect(IMDB::Parser::TVRole.new('"Crackhorse Presents" (2012) {High Speed (#1.10)}').character).to be_nil
     end
   end
   describe '#credit' do

@@ -1,8 +1,7 @@
-require 'parser'
+require 'imdb/parser/parser'
 
 
-
-describe IMDB::Parser, '#parse' do
+describe IMDB::Parser::Parser, '#parse' do
   let(:contents) { %{
     Name\t\t\tTitles
     ----\t\t\t------
@@ -11,15 +10,15 @@ describe IMDB::Parser, '#parse' do
   }}
 
   it "parses actors" do
-    parser = IMDB::Parser.new(contents)
+    parser = IMDB::Parser::Parser.new(contents)
     expect(parser.actors.count).to eq(1)
   end
   it "parses roles" do
-    parser = IMDB::Parser.new(contents)
+    parser = IMDB::Parser::Parser.new(contents)
     expect(parser.actors.first.roles.count).to eq(2)
   end
   describe "knows role type" do
-    let(:roles) { IMDB::Parser.new(contents).actors.first.roles }
+    let(:roles) { IMDB::Parser::Parser.new(contents).actors.first.roles }
     it "parses movies" do
       expect(roles.first.type).to eq(:movie)
     end
@@ -29,7 +28,7 @@ describe IMDB::Parser, '#parse' do
   end
   context "when passed an IO" do
     it "parses actors" do
-      parser = IMDB::Parser.new(StringIO.new(contents.strip))
+      parser = IMDB::Parser::Parser.new(StringIO.new(contents.strip))
       expect(parser.actors.count).to eq(1)
     end
   end
@@ -52,7 +51,7 @@ describe IMDB::Parser, '#parse' do
       gobbledy gook
     }}
     it "strips it" do
-      parser = IMDB::Parser.new(StringIO.new(contents.strip))
+      parser = IMDB::Parser::Parser.new(StringIO.new(contents.strip))
       expect(parser.actors.count).to eq(1)
     end
   end
