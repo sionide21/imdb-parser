@@ -45,7 +45,7 @@ module IMDB
     end
     def regex
       /^(?<title>.+?)\s+
-        \((?<year>\d{4})(:?\/I+)?\) \s+?
+        \((?<year>\d{4})(:?\/I+)?\) \s*?
         (?:\((?:uncredited|TV|V|.+?)\))? \s*?
         (?<suspended>{{SUSPENDED}})? \s*?
         (?:\[(?<character>.+?)\])? \s*?

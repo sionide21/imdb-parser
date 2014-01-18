@@ -40,6 +40,9 @@ describe IMDB::Role do
     it "handles uncredited roles" do
       expect { parse "Night of the Demons (2009)  (uncredited)  [Goth raver]" }.not_to raise_error
     end
+    it "handles just title and year" do
+      expect { parse "Llamada (2011)" }.not_to raise_error
+    end
     it "handles uncredited tv roles" do
       expect { parse '"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]' }.not_to raise_error
       expect { parse '"Supernatural" (2005) {99 Problems (#5.17)}  (uncredited)  [Herself]' }.not_to raise_error
