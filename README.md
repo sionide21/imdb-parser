@@ -5,7 +5,7 @@ IMDB Parser
 
 A parser for the IMDB actor and actress files.
 
-Parses the `actors.list` and `actresses.list` files from IMDB's (alternate interfaces)[http://www.imdb.com/interfaces] page.
+Parses the `actors.list` and `actresses.list` files from IMDB's [alternate interfaces](http://www.imdb.com/interfaces) page.
 
 
 ## Installation
