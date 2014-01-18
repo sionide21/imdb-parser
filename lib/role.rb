@@ -31,7 +31,7 @@ module IMDB
     end
 
     def character
-      matches[:character]
+      matches[:alt_character] or matches[:character]
     end
 
     def credit
@@ -52,6 +52,7 @@ module IMDB
         (?:\((?:uncredited|TV|V|.+?)\))? \s*?
         (?<suspended>{{SUSPENDED}})? \s*?
         (?:\(rumored\))? \s*?
+        #{alt_character_regex} \s*?
         (?:\[(?<character>.+?)\])? \s*?
         (?:<(?<credit>\d+)>)?
       $/x
@@ -59,6 +60,9 @@ module IMDB
 
      def self.year_regex
        /\((?:(?<year>\d{4})|[\?]{4})(:?\/[IVX]+?)?\)/
+     end
+     def self.alt_character_regex
+       /(?:\((?:uncredited|as\s(?<alt_character>.+?)|.+?)\))?/
      end
   end
 
@@ -79,10 +83,6 @@ module IMDB
       matches[:episode].to_i if matches[:episode]
     end
 
-    def character
-      matches[:alt_character] or super
-    end
-
     private
     def self.regex
       /^"(?<title>.+?)"\s+
@@ -92,7 +92,7 @@ module IMDB
           \((?<episode_title>[\d\-]+)\) |
           (?<episode_title>.+?)
         )})? \s*?
-        (?:\((?:uncredited|as\s(?<alt_character>.+?)|.+?)\))? \s*?
+        #{alt_character_regex} \s*?
         (?:\[(?<character>.+?)\])?\s*?
         (?:<(?<credit>\d+)>)?
       $/x

@@ -22,6 +22,11 @@ describe IMDB::Role do
     it "returns the character name" do
       expect(role.character).to eq("Jenny")
     end
+    it "returns character name istead 'Themself' credited 'as character'" do
+      expect(IMDB::Role.new(
+        "The Magnificent Duo (1992) {{SUSPENDED}}  (as Carol Roberts)  [Muriel]  <15>"
+      ).character).to eq("Carol Roberts")
+    end
     it "is nil if no character provided" do
       expect(IMDB::Role.new("El secreto de la Veneno (1997) (V)  <1>").character).to be_nil
     end
@@ -84,6 +89,7 @@ describe IMDB::Role do
     end
     it "handles alternate character listing" do
       expect { parse '"Casting Qs" (2010) {An Interview with Tracy \'Twinkie\' Byrd (#2.14)}  (as Twinkie Byrd)  [Herself]' }.not_to raise_error
+      expect { parse "The Magnificent Duo (1992) {{SUSPENDED}}  (as Carol Roberts)  [Muriel]  <15>" }.not_to raise_error
     end
     it "handles arbitrary episode notes" do
       expect { parse '"The Xtra Factor" (2004) {Tulisa\'s Best and Worst (#8.34)}  (archive footage)  [Themselves]' }.not_to raise_error
