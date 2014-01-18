@@ -39,6 +39,7 @@ describe IMDB::Role do
     end
     it "handles uncredited tv roles" do
       expect { parse '"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]' }.not_to raise_error
+      expect { parse '"Supernatural" (2005) {99 Problems (#5.17)}  (uncredited)  [Herself]' }.not_to raise_error
     end
     it "handles made for TV movies" do
       expect { parse "This American Life Live! (2012) (TV)  [Dancers]" }.not_to raise_error

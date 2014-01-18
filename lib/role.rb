@@ -66,7 +66,7 @@ module IMDB
     end
     private
     def regex
-      /^"(?<title>.+?)" +\((?<year>\d{4})\) {(:?(?<episode_title>.+?) +)?\(#(?<season>\d+)\.(?<episode>\d+)\)} +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
+      /^"(?<title>.+?)" +\((?<year>\d{4})\) {(:?(?<episode_title>.+?) +)?\(#(?<season>\d+)\.(?<episode>\d+)\)}(?: +?\(uncredited\))? +\[(?<character>.+?)\](?: +<(?<credit>\d+)>)?$/
     end
   end
 end
