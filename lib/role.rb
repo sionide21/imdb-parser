@@ -41,9 +41,12 @@ module IMDB
     private
 
     def matches
-      @matches ||= regex.match(input)
+      @matches ||= self.class.cached_regex.match(input)
     end
-    def regex
+    def self.cached_regex
+      @regex ||= Regexp.new regex
+    end
+    def self.regex
       /^(?<title>.+?)\s+
         #{year_regex} \s*?
         (?:\((?:uncredited|TV|V|.+?)\))? \s*?
@@ -53,7 +56,7 @@ module IMDB
       $/x
      end
 
-     def year_regex
+     def self.year_regex
        /\((?:(?<year>\d{4})(:?\/I+)?|[\?]{4})\)/
      end
   end
@@ -80,7 +83,7 @@ module IMDB
     end
 
     private
-    def regex
+    def self.regex
       /^"(?<title>.+?)"\s+
         #{year_regex}
         (:?\s{(:?
