@@ -1,4 +1,4 @@
-require 'imdb/parser/parser'
+require 'imdb/parser'
 
 
 describe IMDB::Parser::Parser, '#parse' do

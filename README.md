@@ -30,7 +30,7 @@ Here is a simple example of how to use the library. Run `rspec` to see a list of
 ```ruby
 require 'imdb/parser'
 
-parser = IMDB::Parser.new(File.open("actors.list" ,'rb'))
+parser = IMDB::Parser::Parser.new(File.open("actors.list" ,'rb'))
 parser.each do |actor|
     puts actor.name
     puts "=" * actor.name.length
