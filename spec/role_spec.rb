@@ -24,6 +24,9 @@ describe IMDB::Role do
     it "returns the billing position in credits" do
       expect(role.credit).to eq(6)
     end
+    it "is nil if not credited" do
+      expect(IMDB::Role.new("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit).to be_nil
+    end
   end
 
   describe "::parse" do
@@ -33,8 +36,9 @@ describe IMDB::Role do
 
     it "handles uncredited roles" do
       expect { parse "Night of the Demons (2009)  (uncredited)  [Goth raver]" }.not_to raise_error
-      pp parse("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit
-      expect(parse("Night of the Demons (2009)  (uncredited)  [Goth raver]").credit).to be_nil
+    end
+    it "handles uncredited tv roles" do
+      expect { parse '"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]' }.not_to raise_error
     end
   end
 end
@@ -52,6 +56,9 @@ describe IMDB::TVRole do
   describe '#episode_title' do
     it "returns the title of the episode" do
       expect(role.episode_title).to eq("After Life")
+    end
+    it "is nil if the title is not provided" do
+      expect(IMDB::TVRole.new('"Four Star Revue" (1950) {(#1.15)}  [Guest Apache Dancers]').episode_title).to be_nil
     end
   end
   describe '#season' do
