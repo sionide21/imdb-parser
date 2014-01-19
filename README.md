@@ -30,7 +30,7 @@ Here is a simple example of how to use the library. Run `rspec` to see a list of
 ```ruby
 require 'imdb/parser'
 
-parser = IMDB::Parser::Parser.new(File.open("actors.list" ,'rb'))
+parser = IMDB::Parser::Parser.new(File.open("actors.list" ,'r:ISO-8859-1'))
 parser.each do |actor|
     puts actor.name
     puts "=" * actor.name.length
@@ -40,6 +40,10 @@ parser.each do |actor|
     puts
 end
 ```
+
+## File encoding
+
+The files provided by IMDB are encoded as `ISO-8859-1`. Make sure you open the files as such or you will get encoding errors.
 
 ## Contributing
 
