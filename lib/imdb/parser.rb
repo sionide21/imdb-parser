@@ -16,10 +16,10 @@ module IMDB
         else
           @input = StringIO.new(input.strip)
         end
+        strip_header
       end
 
       def each
-        strip_header
         record = ""
         input.each do |line|
           if line.strip.empty?
