@@ -1,7 +1,7 @@
 IMDB Parser
 ===========
 
-[![Build Status](https://travis-ci.org/sionide21/imdb-actors.png?branch=master)](https://travis-ci.org/sionide21/imdb-actors)
+[![Build Status](https://travis-ci.org/sionide21/imdb-parser.png?branch=master)](https://travis-ci.org/sionide21/imdb-parser)
 
 A parser for the IMDB actor and actress files.
 
